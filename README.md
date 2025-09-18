@@ -21,6 +21,76 @@ A comprehensive backend API for a platform connecting users with mobility provid
 - **CORS** for cross-origin requests
 - **Helmet** for security
 
+### Middleware
+The application includes a comprehensive middleware layer that handles authentication, validation, rate limiting, logging, and error handling:
+
+**Authentication Middleware** 
+src/middleware/auth.js
+
+1-authenticateToken
+ - Verifies JWT tokens and adds user info to requests
+2-authorizeRoles
+ - Role-based access control (customer, vendor_admin, driver)
+3-optionalAuth
+ - Adds user info if token is valid, but doesn't require authentication
+
+**Validation Middleware** 
+src/middleware/validation.js
+
+1-validateRequest
+ - General input validation with schema-based validation
+2-validationSchemas
+- Pre-built schemas for user registration, bookings, deliveries
+- Built-in validators for UUID, email, phone, coordinates, and date validation
+
+**Rate Limiting Middleware** 
+src/middleware/rateLimit.js
+
+1- moderateRateLimit
+- 50 requests per 15 minutes (general API endpoints)
+2- strictRateLimit
+- 10 requests per 5 minutes (sensitive operations like payments)
+3- lenientRateLimit
+- 200 requests per hour (public search endpoints)
+
+**Logging Middleware** 
+src/middleware/logging.js
+
+1- requestLogger
+- Logs all API requests with timing, user info, and request details
+2- responseWrapper
+- Adds timestamps and request IDs to all responses
+3- requestId
+- Generates unique IDs for request tracking and debugging
+
+**Error Handling Middleware** 
+src/middleware/errorHandler.js
+
+1- errorHandler
+- Centralized error processing with proper HTTP status codes
+2- asyncHandler
+- Wraps async functions to catch rejected promises
+3- createError
+4- validationError
+5- authenticationError
+ - Helper functions for consistent error creation
+
+
+**Usage Examples**
+```bash
+// Protect routes with authentication
+app.get('/api/protected', authenticateToken, (req, res) => { ... });
+
+// Admin-only access
+app.post('/api/admin', authenticateToken, authorizeRoles('vendor_admin'), (req, res) => { ... });
+
+// Input validation
+app.post('/api/bookings', validateRequest(validationSchemas.bookingCreation), (req, res) => { ... });
+
+// Rate limiting
+app.use('/api/payments', strictRateLimit);
+```
+
 ## Project Structure
 
 ```
@@ -51,7 +121,14 @@ src/
 ├── utils/
 │   ├── databaseInit.js      # Database initialization
 │   └── seedDatabase.js      # Sample data seeding
-├── middleware/              # Custom middleware
+├── middleware/  
+│   ├── authMiddleware.js    # Authentication middleware
+│   ├── rateLimit.js         # Rate limiting middleware
+│   ├── validation.js        # Input validation middleware
+│   ├── errorHandler.js      # Error handling middleware
+│   ├── index.js             # Vendor verification middleware
+│   └── logging.js           # Logging middleware
+│   
 └── server.js                # Main server file
 ```
 
@@ -221,6 +298,3 @@ The application includes sample data for testing:
 4. Add tests
 5. Submit pull request
 
-## License
-
-ISC License
