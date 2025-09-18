@@ -27,11 +27,11 @@ The application includes a comprehensive middleware layer that handles authentic
 **Authentication Middleware** 
 src/middleware/auth.js
 
-1-authenticateToken
+**authenticateToken**
  - Verifies JWT tokens and adds user info to requests
-2-authorizeRoles
+**authorizeRoles**
  - Role-based access control (customer, vendor_admin, driver)
-3-optionalAuth
+**optionalAuth**
  - Adds user info if token is valid, but doesn't require authentication
 
 **Validation Middleware** 
