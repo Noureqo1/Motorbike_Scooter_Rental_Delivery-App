@@ -10,18 +10,18 @@ const seedDatabase = async () => {
 
     const users = await models.User.bulkCreate([
       {
-        email: 'john.doe@example.com',
+        email: 'mo.aziz@example.com',
         password_hash: hashedPassword,
-        first_name: 'John',
-        last_name: 'Doe',
+        first_name: 'mo',
+        last_name: 'aziz',
         phone: '+1234567890',
         user_type: 'customer'
       },
       {
-        email: 'jane.smith@example.com',
+        email: 'so.mesbah@example.com',
         password_hash: hashedPassword,
-        first_name: 'Jane',
-        last_name: 'Smith',
+        first_name: 'so',
+        last_name: 'mesbah',
         phone: '+1234567891',
         user_type: 'vendor_admin'
       },
