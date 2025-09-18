@@ -37,42 +37,41 @@ src/middleware/auth.js
 **Validation Middleware** 
 src/middleware/validation.js
 
-1-validateRequest
+**validateRequest**
  - General input validation with schema-based validation
-2-validationSchemas
+**validationSchemas**
 - Pre-built schemas for user registration, bookings, deliveries
 - Built-in validators for UUID, email, phone, coordinates, and date validation
 
 **Rate Limiting Middleware** 
 src/middleware/rateLimit.js
 
-1- moderateRateLimit
+**moderateRateLimit**
 - 50 requests per 15 minutes (general API endpoints)
-2- strictRateLimit
+**strictRateLimit**
 - 10 requests per 5 minutes (sensitive operations like payments)
-3- lenientRateLimit
+**lenientRateLimit**
 - 200 requests per hour (public search endpoints)
 
 **Logging Middleware** 
 src/middleware/logging.js
 
-1- requestLogger
+**requestLogger**
 - Logs all API requests with timing, user info, and request details
-2- responseWrapper
+**responseWrapper**
 - Adds timestamps and request IDs to all responses
-3- requestId
+**requestId**
 - Generates unique IDs for request tracking and debugging
 
 **Error Handling Middleware** 
 src/middleware/errorHandler.js
 
-1- errorHandler
+**errorHandler**
 - Centralized error processing with proper HTTP status codes
-2- asyncHandler
+**asyncHandler**
 - Wraps async functions to catch rejected promises
-3- createError
-4- validationError
-5- authenticationError
+**createError**
+**authenticationError**
  - Helper functions for consistent error creation
 
 
